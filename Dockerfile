@@ -85,6 +85,11 @@ COPY dev.services.yml /tmp/dev.services.yml
 # Handy to start off in the composer home base for running drush, drupal console, or composer commands.
 WORKDIR ${COMPOSER_PROJECT_DIR}
 
-# 80 is used in dev. 443 exposed in case anyone wants to use this container to test letsencrypt.
+# 80 is used in dev.
 EXPOSE 80
+
+# 443 exposed in case anyone wants to use this container to test letsencrypt.
 EXPOSE 443
+
+# 9000 exposed if anyone wants to connect to xdebug from outside container.
+EXPOSE 9000

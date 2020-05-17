@@ -31,10 +31,6 @@ RUN apt-get update; \
     php-curl php-readline php-xml php-memcached php-oauth php-bcmath \
     php-zip php-uploadprogress git curl wget locales iproute2 pwgen \
     anacron cron m4 unison netcat net-tools nano unzip jq vim; \
-  apt-get clean; \
-  apt-get autoclean; \
-  apt-get -y autoremove; \
-  rm -rf /var/lib/apt/lists/*; \
   sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd; \
   echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config; \
   locale-gen en_US.UTF-8; \

@@ -1,24 +1,24 @@
 FROM ubuntu:latest
 
 # Configuration variables.
-ENV DATABASE_URI=unspecified
-ENV PROJECT_DIR=/app
-ENV PHP_INI=/etc/php/7.2/apache2/php.ini
-ENV COMPOSER_PROJECT_DIR=/var/www/html
-ENV DRUPAL_CORE_DIR=${COMPOSER_PROJECT_DIR}/web
-ENV DRUPAL_PROJECT=drupal/recommended-project
+ENV DATABASE_URI unspecified
+ENV PROJECT_DIR /app
+ENV PHP_INI /etc/php/7.2/apache2/php.ini
+ENV COMPOSER_PROJECT_DIR /var/www/html
+ENV DRUPAL_CORE_DIR ${COMPOSER_PROJECT_DIR}/web
+ENV DRUPAL_PROJECT drupal/recommended-project
 ENV DRUPAL_SITE_NAME "Drupal Website"
-ENV DATABASE_ROOT_USER=root
-ENV DATABASE_ROOT_PASS=root
-ENV DRUPAL_ADMIN_USERNAME=admin
-ENV DRUPAL_ADMIN_PASSWORD=admin
+ENV DATABASE_ROOT_USER root
+ENV DATABASE_ROOT_PASS root
+ENV DRUPAL_ADMIN_USERNAME admin
+ENV DRUPAL_ADMIN_PASSWORD admin
 ENV DRUPAL_MODULES ""
 ENV DRUPAL_THEMES ""
 ENV DRUPAL_DEFAULT_THEME ""
 ENV DRUPAL_FRONT_PAGE ""
 ENV DRUPAL_FEATURES_DIR ""
-ENV MEMCACHED_HOST=memcached
-ENV MEMCACHED_PORT=11211
+ENV MEMCACHED_HOST memcached
+ENV MEMCACHED_PORT 11211
 
 # Basic Ubuntu/apt packages.
 ENV DEBIAN_FRONTEND=noninteractive
@@ -70,7 +70,7 @@ RUN HOME=/ /usr/local/bin/composer global require drush/drush:~9 \
 COPY onbuild.sh /usr/local/bin/drupalbase-onbuild.sh
 RUN chmod +x /usr/local/bin/drupalbase-onbuild.sh
 ONBUILD COPY . /appinstall
-ONBUILD RUN /usr/local/bin/drupalbase-onbuild.sh
+ONBUILD RUN /usr/local/bin/drupalbase-onbuild.sh "${COMPOSER_PROJECT_DIR}" "${DRUPAL_PROJECT}"
 ONBUILD RUN rm /usr/local/bin/drupalbase-onbuild.sh
 ONBUILD RUN rm -rf /appinstall
 

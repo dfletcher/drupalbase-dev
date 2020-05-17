@@ -49,7 +49,8 @@ RUN update-rc.d -f apache2 remove
 RUN rm -f /var/run/apache2/apache2.pid
 
 # PHP
-COPY xdebug.ini /tmp/xdebug.ini
+COPY xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+RUN phpenmod xdebug
 # The command line version of xdebug segfaults. Disable it.
 RUN rm -f /etc/php/7.2/cli/conf.d/20-xdebug.ini
 
